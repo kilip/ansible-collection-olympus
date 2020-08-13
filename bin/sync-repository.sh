@@ -26,7 +26,6 @@ function subtree()
 for REMOTE in $REMOTES
 do
     REMOTE_URL="git@github.com:kilip/ansible-role-${REMOTE}.git"
-    
     remote $REMOTE $REMOTE_URL
-    subtree $REMOTE
+    split "roles/$REMOTE" $REMOTE
 done
