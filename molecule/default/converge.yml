@@ -1,0 +1,27 @@
+---
+- name: Install squid
+  collections:
+  - kilip.olympus
+  hosts: squid
+  tasks:
+    - name: "olympus ~> install squid"
+      include_role: 
+        name: squid
+- name: Preparing hosts
+  collections:
+  - kilip.olympus
+  hosts: zeus
+  tasks:
+    - name: "olympus ~> preparing host"
+      include_role:
+        name: "prepare"
+    - name: olympus ~> running zeus role
+      include_role:
+        name: zeus
+
+- name: Openhab
+  hosts: openhab
+  tasks:
+    - name: olympus ~> running openhab role
+      include_role:
+        name: openhab

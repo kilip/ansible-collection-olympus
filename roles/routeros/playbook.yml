@@ -1,0 +1,8 @@
+- hosts: routeros
+  gather_facts: no
+  tasks:
+    - name: test
+      routeros_command:
+        commands: /interface bridge print
+      register: _routeros_bridges
+    - set_fact:

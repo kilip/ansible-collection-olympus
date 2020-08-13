@@ -1,0 +1,5 @@
+- name: assert service squid present
+  assert:
+    that: "'squid.service' in services"
+    success_msg: "squid installed"
+    fail_msg: "squid service not exist"

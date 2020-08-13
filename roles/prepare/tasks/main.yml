@@ -1,0 +1,9 @@
+- name: "olympus ~> include system var for {{ ansible_os_family }}"
+  include_vars: "system-{{ ansible_os_family }}.yml"
+- name: olympus ~> proxy settings
+  template:
+    src: proxy.j2
+    dest: /etc/profile.d/proxy.sh
+    owner: root
+    group: "{{ olympus_root_group }}"
+  when: olympus_proxy|length > 0

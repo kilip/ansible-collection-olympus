@@ -1,0 +1,9 @@
+---
+# This is an example playbook to execute Ansible tests.
+
+- name: Verify Olympus Install
+  collections:
+  - kilip.olympus
+  hosts: all
+  tasks:
+  - include_role: name=verifier

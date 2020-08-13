@@ -1,0 +1,11 @@
+- name: Assert Proxy Configured
+  assert:
+    that: lookup('env',item) == olympus_proxy
+    fail_msg: "Environment variables is: {{ lookup('env',item) }}"
+    success_msg: "{{ item }}: configured to {{ olympus_proxy }}"
+  with_items:
+    - http_proxy
+    - https_proxy
+    - HTTP_PROXY
+    - HTTPS_PROXY
+  when: olympus_proxy is string

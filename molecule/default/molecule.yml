@@ -1,0 +1,45 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+platforms:
+  - name: centos
+    hostname: centos
+    image: kilip/molecule-centos:8
+    pre_build_image: true
+    privileged: true
+    command: ${MOLECULE_DOCKER_COMMAND:-""}
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+
+  - name: ubuntu
+    hostname: ubuntu
+    image: kilip/molecule-ubuntu:20.04
+    pre_build_image: true
+    privileged: true
+    command: ${MOLECULE_DOCKER_COMMAND:-""}
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+  - name: debian
+    hostname: debian
+    image: kilip/molecule-debian:10
+    pre_build_image: true
+    privileged: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+
+provisioner:
+  name: ansible
+  log: true
+  env:
+    ANSIBLE_ROLES_PATH: ${MOLECULE_PROJECT_DIRECTORY}/roles
+  inventory:
+    links:
+      hosts: "./inventory/hosts.ini"
+      group_vars: "./inventory/group_vars"
+verifier:
+  name: ansible
+  #inventory:
+  #  links:
+  #    group_vars: inventory/group_vars

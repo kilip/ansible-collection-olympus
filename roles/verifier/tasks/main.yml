@@ -1,0 +1,9 @@
+- name: verifier ~> gather service facts
+  service_facts:
+
+- name: verifier ~> check prepare config
+  include_tasks: prepare.yml
+
+- include_tasks: squid.yml
+  when: "'squid' in group_names"
+
