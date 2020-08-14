@@ -1,0 +1,19 @@
+---
+- name: include preflight role
+  include_role:
+    name: preflight
+  when: "'zeus' in group_names"
+
+- name: "including role {{ _olympus_role.role }}"
+  include_role:
+    name: "{{ _olympus_role.role }}"
+  when: _olympus_role.group in group_names
+  loop_control:
+    loop_var: _olympus_role
+  with_items: "{{ olympus_roles }}"
+
+- name: "telegram finish"
+  command: echo "tasks finish"
+  notify: telegram finish
+  changed_when: false
+  when: inventory_hostname == 'debian'

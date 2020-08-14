@@ -1,0 +1,21 @@
+olympus_telegram:
+  token: "{{ lookup('env', 'TELEGRAM_TOKEN') }}"
+  chat_id: "{{ lookup('env', 'TELEGRAM_CHAT_ID') }}"
+
+olympus_roles:
+- role: squid
+  group: squid
+- role: zeus
+  group: zeus
+- role: influxdb
+  group: influxdb
+- role: mosquitto
+  group: mosquitto
+- role: openhab
+  group: openhab
+- role: cloudalchemy.prometheus
+  group: prometheus
+- role: cloudalchemy.grafana
+  group: grafana
+- role: geerlingguy.nginx
+  group: nginx`

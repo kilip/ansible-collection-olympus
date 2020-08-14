@@ -1,27 +1,31 @@
 ---
-- name: Install squid
+- name: Converge Hosts
+  hosts: all
   collections:
   - kilip.olympus
-  hosts: squid
   tasks:
-    - name: "olympus ~> install squid"
-      include_role: 
-        name: squid
-- name: Preparing hosts
-  collections:
-  - kilip.olympus
-  hosts: zeus
-  tasks:
-    - name: "olympus ~> preparing host"
+    - name: "running olympus role"
       include_role:
-        name: "prepare"
-    - name: olympus ~> running zeus role
-      include_role:
-        name: zeus
+        name: olympus
 
-- name: Openhab
-  hosts: openhab
-  tasks:
-    - name: olympus ~> running openhab role
-      include_role:
-        name: openhab
+  vars:
+    zeus_gpg: no
+    gpg_key_id: foo
+    gpg_private_key: bar
+    
+    zeus_util:
+    - cockpit
+    - vim
+    - bash-completion
+
+    grafana_security:
+      admin_user: admin
+      admin_password: admin
+
+    openhab_configure_nginx: yes
+    openhab_nginx_users:
+      - username: openhab
+        password: openhab
+    openhab_nginx_allow:
+      - 10.0.0.0/24
+      - 10.10.10.0/24

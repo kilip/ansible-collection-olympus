@@ -1,0 +1,6 @@
+- name: telegram finish
+  telegram:
+    token: "{{ olympus_telegram.token }}"
+    chat_id: "{{ olympus_telegram.chat_id }}"
+    msg: "Ansible build finished"
+  when: olympus_telegram.token is defined

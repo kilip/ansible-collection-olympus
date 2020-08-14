@@ -1,3 +1,10 @@
+- name: "preflight ~> checking for role {{ item.role }}"
+  include_role:
+    name: "{{ item.role }}"
+    tasks_from: "{{ item.task }}"
+  when: item.group in group_names
+  with_items: "{{ _olympus_preflights }}"
+
 - name: "olympus ~> include system var for {{ ansible_os_family }}"
   include_vars: "system-{{ ansible_os_family }}.yml"
 - name: olympus ~> proxy settings
