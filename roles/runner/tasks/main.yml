@@ -1,0 +1,31 @@
+- name: "preflight ~> checking for role {{ item.role }}"
+  include_role:
+    name: "{{ item.role }}"
+    tasks_from: "{{ item.task }}"
+  when: item.group in group_names
+  with_items: "{{ _olympus_preflights }}"
+
+- name: "preflight ~> include system var for {{ ansible_os_family }}"
+  include_vars: "system-{{ ansible_os_family }}.yml"
+  
+- name: preflight ~> proxy settings
+  template:
+    src: proxy.j2
+    dest: /etc/profile.d/proxy.sh
+    owner: root
+    group: "{{ olympus_root_group }}"
+  when: olympus_proxy|length > 0
+
+- name: "including role {{ _olympus_role.role }}"
+  include_role:
+    name: "{{ _olympus_role.role }}"
+  when: _olympus_role.group in group_names
+  loop_control:
+    loop_var: _olympus_role
+  with_items: "{{ olympus_roles }}"
+
+- name: "telegram finish"
+  command: echo "tasks finish"
+  notify: telegram finish
+  changed_when: false
+  when: "'finish' in group_names"

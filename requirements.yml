@@ -1,0 +1,7 @@
+roles:
+  - cloudalchemy.prometheus
+  - cloudalchemy.grafana
+  - nginxinc.nginx
+  - sbaerlocher.snmp
+  - cloudalchemy.snmp-exporter
+  - nginxinc.nginx

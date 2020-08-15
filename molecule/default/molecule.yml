@@ -12,7 +12,6 @@ platforms:
     command: ${MOLECULE_DOCKER_COMMAND:-""}
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
-
   - name: ubuntu
     hostname: ubuntu
     image: kilip/molecule-ubuntu:20.04

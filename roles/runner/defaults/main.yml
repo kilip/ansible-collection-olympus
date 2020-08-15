@@ -1,0 +1,36 @@
+olympus_telegram:
+  token: "{{ lookup('env', 'TELEGRAM_TOKEN') }}"
+  chat_id: "{{ lookup('env', 'TELEGRAM_CHAT_ID') }}"
+
+olympus_roles:
+- role: squid
+  group: squid
+- role: zeus
+  group: zeus
+- role: sbaerlocher.snmp
+  group: snmp
+- role: influxdb
+  group: influxdb
+- role: mosquitto
+  group: mosquitto
+- role: openhab
+  group: openhab
+- role: cloudalchemy.prometheus
+  group: prometheus
+- role: cloudalchemy.snmp-exporter
+  group: prometheus
+- role: cloudalchemy.grafana
+  group: grafana
+#- role: nginxinc.nginx
+#  group: nginx
+
+olympus_setup_proxy: no
+olympus_proxy: ""
+
+_olympus_preflights:
+  - role: zeus
+    group: zeus 
+    task: preflight.yml
+  - role: openhab
+    group: zeus
+    task: preflight.yml
